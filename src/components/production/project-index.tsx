@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { studyProjects } from "@/data/design-study";
+import { productionProjects } from "@/data/production";
 import styles from "@/app/production.module.css";
 
 export function ProjectIndex() {
-  const [active, setActive] = useState(studyProjects[0]?.id ?? "");
+  const [active, setActive] = useState<string>(productionProjects[0]?.id ?? "");
 
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
-    const targets = studyProjects
+    const targets = productionProjects
       .map((project) => document.getElementById(project.id))
       .filter((target): target is HTMLElement => target !== null);
     const observer = new IntersectionObserver((entries) => {
@@ -24,7 +24,7 @@ export function ProjectIndex() {
 
   return (
     <nav className={styles.projectIndex} aria-label="Selected systems">
-      {studyProjects.map((project) => (
+      {productionProjects.map((project) => (
         <a key={project.id} href={`#${project.id}`} aria-current={active === project.id ? "location" : undefined}>
           <span>{project.number}</span>{project.title}
         </a>

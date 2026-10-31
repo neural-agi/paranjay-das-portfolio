@@ -1,24 +1,31 @@
-import type { Metadata, Viewport } from "next";
-import ProductionHomepage from "@/components/production/homepage";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Paranjay Das — AI/ML Engineering",
-  description: "Selected AI/ML systems by Paranjay Das, focused on retrieval, structured extraction, workflow orchestration, validation, and security.",
-  openGraph: {
-    title: "Paranjay Das — AI/ML Engineering",
-    description: "I build AI systems that are actually engineered.",
-    type: "website",
-    locale: "en_IN",
-  },
-  twitter: {
-    card: "summary",
-    title: "Paranjay Das — AI/ML Engineering",
-    description: "I build AI systems that are actually engineered.",
-  },
-};
+import React from "react";
+import SmoothScroll from "@/components/smooth-scroll";
+import { cn } from "@/lib/utils";
+import AnimatedBackground from "@/components/animated-background";
+import SkillsSection from "@/components/sections/skills";
+import ExperienceSection from "@/components/sections/experience";
+import ProjectsSection from "@/components/sections/projects";
+import ContactSection from "@/components/sections/contact";
+import HeroSection from "@/components/sections/hero";
+import { TechnologySelectionProvider } from "@/contexts/technology-selection";
 
-export const viewport: Viewport = { themeColor: "#f3efe5", colorScheme: "light" };
-
-export default function Home() {
-  return <ProductionHomepage />;
+function MainPage() {
+  return (
+    <TechnologySelectionProvider>
+      <SmoothScroll>
+        <AnimatedBackground />
+        <main className={cn("bg-slate-100 dark:bg-transparent canvas-overlay-mode")}>
+          <HeroSection />
+          <SkillsSection />
+          <ExperienceSection />
+          <ProjectsSection />
+          <ContactSection />
+        </main>
+      </SmoothScroll>
+    </TechnologySelectionProvider>
+  );
 }
+
+export default MainPage;

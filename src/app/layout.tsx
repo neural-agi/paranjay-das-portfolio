@@ -1,15 +1,48 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import "./globals.css";
+import { config } from "@/data/config";
+
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
+import AppOverlays from "@/components/app-overlays";
+import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: "Paranjay Das — AI/ML Engineer · Researcher · Builder",
-  description: "Paranjay Das builds AI systems that are actually engineered. Exploring LLM applications, agentic systems, RAG, and AI security from Kolkata, India.",
-  openGraph: { title: "Paranjay Das — AI/ML Engineer", description: "I build AI systems that are actually engineered.", type: "website", locale: "en_IN" },
-  twitter: { card: "summary", title: "Paranjay Das — AI/ML Engineer", description: "I build AI systems that are actually engineered." },
+  title: config.title,
+  description: config.description.long,
+  keywords: config.keywords,
+  authors: [{ name: config.author }],
+  openGraph: {
+    title: config.title,
+    description: config.description.short,
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: config.title,
+    description: config.description.short,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
-export const viewport: Viewport = { themeColor: "#0c0d0d", colorScheme: "dark" };
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+          <AppOverlays />
+        </Providers>
+      </body>
+    </html>
+  );
 }
